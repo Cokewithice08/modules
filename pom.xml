@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.modules</groupId>
+    <artifactId>modules</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <description>
+        多模块开发
+    </description>
+
+    <modules>
+        <module>admin</module>
+        <module>quartz</module>
+        <module>common</module>
+    </modules>
+    <packaging>pom</packaging>
+    <!--版本定义-->
+    <properties>
+        <module-version>1.0-SNAPSHOT</module-version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.plugin.version>3.1</maven.compiler.plugin.version>
+        <java.version>1.8</java.version>
+        <swagger.version>2.9.2</swagger.version>
+        <mybatis-spring-boot.version>2.1.4</mybatis-spring-boot.version>
+        <druid.version>1.2.4</druid.version>
+        <pagehelper.boot.version>1.3.0</pagehelper.boot.version>
+
+    </properties>
+
+
+
+
+    <!--在这里引用的依赖会被继承-->
+    <dependencies>
+
+    </dependencies>
+
+    <!--在这里的依赖不会被继承，子模块要应用自己配置，不过就不用写版本-->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>2.2.13.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--引入子模块-->
+            <dependency>
+                <groupId>com.quartz</groupId>
+                <artifactId>quartz</artifactId>
+                <version>${module-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.common</groupId>
+                <artifactId>common</artifactId>
+                <version>${module-version}</version>
+            </dependency>
+
+
+            <!-- swagger2-->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${swagger.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>io.swagger</groupId>
+                        <artifactId>swagger-annotations</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>io.swagger</groupId>
+                        <artifactId>swagger-models</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <!-- swagger2-UI-->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+            <!--mybatis-->
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis-spring-boot.version}</version>
+            </dependency>
+            <!--阿里数据库连接池 -->
+<!--            <dependency>-->
+<!--                <groupId>com.alibaba</groupId>-->
+<!--                <artifactId>druid-spring-boot-starter</artifactId>-->
+<!--                <version>${druid.version}</version>-->
+<!--            </dependency>-->
+<!--            &lt;!&ndash; SpringBoot集成mybatis框架 &ndash;&gt;-->
+<!--            <dependency>-->
+<!--                <groupId>org.mybatis.spring.boot</groupId>-->
+<!--                <artifactId>mybatis-spring-boot-starter</artifactId>-->
+<!--                <version>${mybatis-spring-boot.version}</version>-->
+<!--            </dependency>-->
+
+            <!-- pagehelper 分页插件 -->
+<!--            <dependency>-->
+<!--                <groupId>com.github.pagehelper</groupId>-->
+<!--                <artifactId>pagehelper-spring-boot-starter</artifactId>-->
+<!--                <version>${pagehelper.boot.version}</version>-->
+<!--            </dependency>-->
+
+        </dependencies>
+    </dependencyManagement>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <!--父模板不需要是一个能运行的项目，所以更改为maven打包方式-->
+                <!--                <groupId>org.springframework.boot</groupId>-->
+                <!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>

@@ -1,0 +1,16 @@
+package com.admin.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import result.Result;
+
+@RestController
+@RequestMapping("/test")
+public class TestController {
+
+    @GetMapping("01")
+    public Result test01(){
+        return Result.success();
+    }
+}
